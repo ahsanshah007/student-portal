@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration – Student Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #0f172a;
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --light: #f8fafc;
+      --card-bg: #1e293b;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--primary);
+      color: var(--light);
+      min-height: 100vh;
+    }
+    .navbar {
+      background: rgba(15,23,42,0.95) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(99,102,241,0.2);
+      padding: 1rem 2rem;
+    }
+    .navbar-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--accent) !important;
+    }
+    .nav-link { color: #cbd5e1 !important; font-weight: 500; transition: color 0.2s; }
+    .nav-link:hover { color: var(--accent2) !important; }
+
+    .page-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7rem 1rem 3rem;
+      position: relative;
+    }
+    .page-wrap::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .form-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 24px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+    }
+    .form-card h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.9rem;
+      letter-spacing: -1px;
+      margin-bottom: 0.3rem;
+    }
+    .form-card p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 2rem; }
+
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #94a3b8;
+      letter-spacing: 0.3px;
+      margin-bottom: 0.4rem;
+    }
+    .form-control, .form-select {
+      background: #0f172a !important;
+      border: 1.5px solid rgba(99,102,241,0.25) !important;
+      border-radius: 10px !important;
+      color: var(--light) !important;
+      padding: 0.75rem 1rem !important;
+      font-size: 0.95rem !important;
+      transition: border-color 0.2s !important;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important;
+    }
+    .form-control::placeholder { color: #475569 !important; }
+    .form-control.is-invalid { border-color: #f87171 !important; }
+    .invalid-feedback {
+      font-size: 0.8rem !important;
+      color: #f87171 !important;
+    }
+
+    .btn-register {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), #818cf8);
+      border: none;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.9rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(99,102,241,0.35);
+      margin-top: 0.5rem;
+    }
+    .btn-register:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.5);
+    }
+    .login-link { text-align: center; margin-top: 1.2rem; font-size: 0.9rem; color: #64748b; }
+    .login-link a { color: var(--accent2); text-decoration: none; }
+
+    .gender-group { display: flex; gap: 1rem; }
+    .gender-option {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #0f172a;
+      border: 1.5px solid rgba(99,102,241,0.25);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      font-size: 0.95rem;
+    }
+    .gender-option input[type="radio"] { accent-color: var(--accent); }
+    .gender-option:has(input:checked) { border-color: var(--accent); background: rgba(99,102,241,0.08); }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">⬡ StudentPortal</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="registration.html">Registration</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="form-card">
+    <h2>Create Account 🎓</h2>
+    <p>Join the Student Portal — fill in your details below.</p>
+
+    <div id="errorAlert" class="alert alert-danger d-none" role="alert"></div>
+
+    <div class="mb-3">
+      <label class="form-label">Full Name</label>
+      <input type="text" id="name" class="form-control" placeholder="e.g. Ali Hassan"/>
+      <div class="invalid-feedback" id="nameErr"></div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email Address</label>
+      <input type="text" id="email" class="form-control" placeholder="e.g. ali@student.edu.pk"/>
+      <div class="invalid-feedback" id="emailErr"></div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" id="password" class="form-control" placeholder="Min. 6 characters"/>
+      <div class="invalid-feedback" id="passErr"></div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Confirm Password</label>
+      <input type="password" id="confirmPassword" class="form-control" placeholder="Re-enter your password"/>
+      <div class="invalid-feedback" id="confirmErr"></div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Age</label>
+      <input type="text" id="age" class="form-control" placeholder="e.g. 20"/>
+      <div class="invalid-feedback" id="ageErr"></div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label d-block">Gender</label>
+      <div class="gender-group">
+        <label class="gender-option">
+          <input type="radio" name="gender" value="Male" id="gMale"/> Male
+        </label>
+        <label class="gender-option">
+          <input type="radio" name="gender" value="Female" id="gFemale"/> Female
+        </label>
+        <label class="gender-option">
+          <input type="radio" name="gender" value="Other" id="gOther"/> Other
+        </label>
+      </div>
+      <div class="invalid-feedback d-block" id="genderErr" style="display:none!important;"></div>
+    </div>
+
+    <button class="btn-register" onclick="validateForm()">Register →</button>
+
+    <div class="login-link">
+      Already have an account? <a href="dashboard.html">Go to Dashboard</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function clearErrors() {
+    ['name','email','password','confirmPassword','age'].forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('is-invalid');
+    });
+    document.getElementById('genderErr').style.display = 'none';
+    document.getElementById('genderErr').textContent = '';
+  }
+
+  function showError(fieldId, errId, msg) {
+    document.getElementById(fieldId).classList.add('is-invalid');
+    document.getElementById(errId).textContent = msg;
+  }
+
+  function validateForm() {
+    clearErrors();
+    let valid = true;
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirm = document.getElementById('confirmPassword').value;
+    const age = document.getElementById('age').value.trim();
+    const gender = document.querySelector('input[name="gender"]:checked');
+
+    // Presence checks
+    if (!name) { showError('name','nameErr','Name is required.'); valid = false; }
+    if (!email) { showError('email','emailErr','Email is required.'); valid = false; }
+    if (!password) { showError('password','passErr','Password is required.'); valid = false; }
+    if (!confirm) { showError('confirmPassword','confirmErr','Please confirm your password.'); valid = false; }
+    if (!age) { showError('age','ageErr','Age is required.'); valid = false; }
+
+    // Email format
+    if (email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showError('email','emailErr','Please enter a valid email address.'); valid = false;
+      }
+    }
+
+    // Password match
+    if (password && confirm && password !== confirm) {
+      showError('confirmPassword','confirmErr','Passwords do not match.'); valid = false;
+    }
+
+    // Age type check (numeric)
+    if (age) {
+      if (isNaN(Number(age)) || age === '') {
+        showError('age','ageErr','Age must be a numeric value.'); valid = false;
+      }
+    }
+
+    // Gender check
+    if (!gender) {
+      const ge = document.getElementById('genderErr');
+      ge.textContent = 'Please select a gender.';
+      ge.style.display = 'block';
+      ge.style.color = '#f87171';
+      valid = false;
+    }
+
+    if (valid) {
+      // Store name for dashboard
+      localStorage.setItem('studentName', name);
+      localStorage.setItem('studentEmail', email);
+      localStorage.setItem('studentAge', age);
+      localStorage.setItem('studentGender', gender.value);
+      window.location.href = 'dashboard.html';
+    }
+  }
+</script>
+</body>
+</html>
