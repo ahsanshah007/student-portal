@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – Student Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #0f172a;
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --light: #f8fafc;
+      --card-bg: #1e293b;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--primary);
+      color: var(--light);
+      min-height: 100vh;
+    }
+    .navbar {
+      background: rgba(15,23,42,0.95) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(99,102,241,0.2);
+      padding: 1rem 2rem;
+    }
+    .navbar-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--accent) !important;
+    }
+    .nav-link { color: #cbd5e1 !important; font-weight: 500; transition: color 0.2s; }
+    .nav-link:hover { color: var(--accent2) !important; }
+
+    .page-content { padding: 7rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+
+    .welcome-banner {
+      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(34,211,238,0.12));
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 20px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-banner::after {
+      content: '🎓';
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 4rem;
+      opacity: 0.3;
+    }
+    .welcome-banner h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+    }
+    .welcome-banner h2 span { color: var(--accent2); }
+    .welcome-banner p { color: #94a3b8; margin-top: 0.3rem; font-size: 0.95rem; }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(99,102,241,0.15);
+      border-radius: 16px;
+      padding: 1.5rem;
+      height: 100%;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); border-color: rgba(99,102,241,0.4); }
+    .stat-card .stat-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .stat-card .stat-label { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-card .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-top: 0.2rem;
+    }
+
+    .datetime-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(34,211,238,0.2);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+    }
+    .datetime-card h5 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    #datetimeDisplay {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+    .btn-datetime {
+      background: rgba(34,211,238,0.12);
+      border: 1px solid rgba(34,211,238,0.3);
+      color: var(--accent2);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 1rem;
+    }
+    .btn-datetime:hover { background: rgba(34,211,238,0.22); }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    .nav-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(99,102,241,0.15);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.25s;
+      height: 100%;
+    }
+    .nav-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 32px rgba(99,102,241,0.2);
+    }
+    .nav-card .nav-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .nav-card h6 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--light);
+    }
+    .nav-card p { font-size: 0.85rem; color: #64748b; margin-top: 0.3rem; }
+    .nav-card .arrow { color: var(--accent2); font-size: 1.2rem; margin-top: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">⬡ StudentPortal</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="registration.html">Registration</a></li>
+        <li class="nav-item"><a class="nav-link active" href="dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-content">
+
+  <!-- Welcome Banner -->
+  <div class="welcome-banner">
+    <h2>Welcome back, <span id="studentName">Student</span>! 👋</h2>
+    <p id="studentMeta">BSCYS – Semester 6 (N) · CYS-463L Web Engineering Lab</p>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-icon">📚</div>
+        <div class="stat-label">Enrolled Courses</div>
+        <div class="stat-value" id="courseCount">0</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-label">Semester</div>
+        <div class="stat-value">6th</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-icon">🏫</div>
+        <div class="stat-label">Department</div>
+        <div class="stat-value">CS</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-label">Program</div>
+        <div class="stat-value">BSCYS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Date & Time -->
+  <div class="datetime-card">
+    <h5>🕐 Current Date & Time</h5>
+    <div id="datetimeDisplay">Click the button to show date & time</div>
+    <button class="btn-datetime" onclick="showDateTime()">Show Current Date & Time</button>
+  </div>
+
+  <!-- Quick Navigation -->
+  <h3 class="section-title">Quick Navigation</h3>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <a href="courses.html" class="nav-card">
+        <div class="nav-icon">📖</div>
+        <h6>Course Selection</h6>
+        <p>Browse and select your courses for this semester.</p>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="feedback.html" class="nav-card">
+        <div class="nav-icon">💬</div>
+        <h6>Feedback</h6>
+        <p>Share your experience and rate the portal.</p>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="index.html" class="nav-card">
+        <div class="nav-icon">🏠</div>
+        <h6>Home Page</h6>
+        <p>Return to the main portal landing page.</p>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Load student data from localStorage
+  const name = localStorage.getItem('studentName') || 'Student';
+  const email = localStorage.getItem('studentEmail') || '';
+  document.getElementById('studentName').textContent = name;
+  if (email) {
+    document.getElementById('studentMeta').textContent =
+      email + ' · BSCYS – Semester 6 (N) · CYS-463L';
+  }
+
+  // Course count
+  const courses = JSON.parse(localStorage.getItem('selectedCourses') || '[]');
+  document.getElementById('courseCount').textContent = courses.length;
+
+  // Show date/time
+  function showDateTime() {
+    const now = new Date();
+    const options = {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    };
+    document.getElementById('datetimeDisplay').textContent =
+      now.toLocaleString('en-PK', options);
+  }
+</script>
+</body>
+</html>
